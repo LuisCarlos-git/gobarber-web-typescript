@@ -14,15 +14,19 @@ export default createGlobalStyle`
   }
 
   body {
+    font-family: 'Roboto Slab', serif;
+    font-size: 16px;
+    color: #fff;
     -webkit-font-smoothing: antialiased !important
   }
 
   body, input, button {
-    font: 14px  Roboto, sans-serif;
+    font: 16px  'Roboto Slab', sans-serif;
   }
 
   html,body, #root {
     height: 100%;
+    background: #312e38
   }
 
   a {
