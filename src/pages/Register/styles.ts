@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import background from '../../assets/sign-in-background.png';
+import background from '../../assets/register-background.png';
 
 const fade = keyframes`
   from {
@@ -32,6 +32,7 @@ export const Content = styled.section`
 
   form {
     margin: 60px 0 30px;
+
     width: 340px;
     text-align: center;
 
@@ -49,14 +50,6 @@ export const Background = styled.section`
   background: url(${background}) no-repeat center;
 `;
 
-export const ForgotPassword = styled(Link)`
-  color: #777;
-  transition: color 0.3s ease-in-out;
-
-  :hover {
-    color: #fff;
-  }
-`;
 export const NewAccount = styled(Link)`
   display: flex;
   align-items: center;
