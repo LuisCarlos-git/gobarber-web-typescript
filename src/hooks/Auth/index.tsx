@@ -32,17 +32,21 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('sessions', {
-      email,
-      password,
-    });
+    try {
+      const response = await api.post('sessions', {
+        email,
+        password,
+      });
 
-    const { token, user } = response.data;
+      const { token, user } = response.data;
 
-    localStorage.setItem('@GoBarber:token', token);
-    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+      localStorage.setItem('@GoBarber:token', token);
+      localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
-    setData({ token, user });
+      setData({ token, user });
+    } catch (err) {
+      return err;
+    }
   }, []);
 
   const signOut = useCallback(() => {
@@ -59,7 +63,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-function useAuth() {
+function useAuth(): AuthContextProps {
   const context = useContext(AuthContext);
 
   if (!context) {

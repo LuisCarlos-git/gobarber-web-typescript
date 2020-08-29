@@ -5,7 +5,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/Auth';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -29,8 +29,6 @@ const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { signIn, user } = useAuth();
 
-  console.log(user);
-
   const handleData = useCallback(
     async (data: DataProps): Promise<void> => {
       try {
@@ -51,8 +49,10 @@ const Login: React.FC = () => {
           password: data.password,
         });
       } catch (err) {
-        const error = getValidationErrors(err);
-        formRef.current?.setErrors(error);
+        if (err instanceof Yup.ValidationError) {
+          const error = getValidationErrors(err);
+          formRef.current?.setErrors(error);
+        }
       }
     },
     [signIn],
