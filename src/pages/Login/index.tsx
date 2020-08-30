@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useAuth } from '../../hooks/Auth';
+import { useToast } from '../../hooks/Toast';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -27,7 +28,8 @@ interface DataProps {
 
 const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { signIn, user } = useAuth();
+  const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   const handleData = useCallback(
     async (data: DataProps): Promise<void> => {
@@ -53,9 +55,15 @@ const Login: React.FC = () => {
           const error = getValidationErrors(err);
           formRef.current?.setErrors(error);
         }
+
+        addToast({
+          type: 'error',
+          message: 'Verifique seu e-mail/senha',
+          title: 'Error na autenticação',
+        });
       }
     },
-    [signIn],
+    [signIn, addToast],
   );
 
   return (
